@@ -25,6 +25,18 @@ public abstract class BaseLMAdapter<T, B extends ViewBinding> extends RecyclerVi
 
     public abstract B getViewBinding(ViewGroup parent, int viewType);
 
+    public OnClick onClick;
+
+    public OnLongClick onLongClick;
+
+    public void setOnClick(OnClick onClick) {
+        this.onClick = onClick;
+    }
+
+    public void setOnLongClick(OnLongClick onLongClick) {
+        this.onLongClick = onLongClick;
+    }
+
     public BaseLMAdapter(Context context) {
         this.context = context;
     }

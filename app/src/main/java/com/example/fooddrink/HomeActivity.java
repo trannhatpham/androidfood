@@ -137,6 +137,7 @@ public class HomeActivity extends BaseTestActivity<ActivityHomeBinding> implemen
                         moveTaskToBack(true);
                         finishAffinity();
                         PublicData.clear();
+                        // chổ này clear nè
                     });
         }
     }

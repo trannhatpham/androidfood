@@ -68,15 +68,16 @@ public class PlaceActivity extends BaseTestActivity<ActivityPlaceBinding> implem
         });
 
         binding.layoutHeader.imageBack.setOnClickListener(v -> finish());
+
         binding.layoutHeader.textTitle.setText("Sửa địa chỉ");
 
         binding.imageClear.setOnClickListener(v -> binding.inputSearch.setText(""));
 
-        binding.inputSearch.setOnClickListener(v -> showConfirm());
+        binding.inputSearch.setOnClickListener(v -> showConfirm( binding.inputSearch.getText().toString()));
 
         binding.layoutHeader.textOK.setOnClickListener(v -> {
             if (TextUtils.isEmpty(binding.inputSearch.getText())) {
-                showToast("Bạn chưa nhập địa chỉ");
+                showToast(getString(R.string.title_error_input_location));
             } else {
                 Intent intent = new Intent();
                 intent.putExtra("TITLE", binding.inputSearch.getText().toString());
@@ -127,7 +128,7 @@ public class PlaceActivity extends BaseTestActivity<ActivityPlaceBinding> implem
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
         String address = info.getAddress();
-        LatLng locationMain = getLocationFromAddress(address);
+        LatLng locationMain = getLocationFromAddress(address==null?"":address);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         mMap.setOnMapClickListener(this::checkLocationByLatLng);
         mMap.setOnMarkerClickListener(marker -> {
@@ -149,7 +150,6 @@ public class PlaceActivity extends BaseTestActivity<ActivityPlaceBinding> implem
         mMap.animateCamera(location);
         mMap.addMarker(markerOptions);
         Log.d("status", "success");
-
 
     }
 
@@ -175,11 +175,12 @@ public class PlaceActivity extends BaseTestActivity<ActivityPlaceBinding> implem
         return p1;
     }
 
-    private void showConfirm() {
+    private void showConfirm(String text) {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.dialog_input_address, null);
         EditText editText = view.findViewById(R.id.inputAddress);
         editText.setHint("Nhận địa chỉ");
+        editText.setText(text);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false)
                 .setTitle("Địa chỉ")

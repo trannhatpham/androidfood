@@ -37,6 +37,7 @@ public abstract class BaseTestActivity<T extends ViewBinding> extends AppCompatA
         setContentView(binding.getRoot());
         initView();
         initData();
+        onObserver();
     }
 
     public abstract T getViewBinding();
@@ -44,6 +45,8 @@ public abstract class BaseTestActivity<T extends ViewBinding> extends AppCompatA
     protected void initView() {}
 
     protected void initData() {}
+
+    protected void onObserver(){}
 
     public <N extends View> N bind(int id) {
         return findViewById(id);

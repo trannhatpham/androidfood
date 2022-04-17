@@ -1,33 +1,44 @@
 package com.example.fooddrink.Model;
 
 public class User {
-    private String Name;
-    private String Password;
+    private String username;
+    private String password;
     private String address;
+    private Integer userID;
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    private String phone;
 
     public User() {
     }
 
     public User(String name, String password, String address) {
-        this.Name = name;
-        this.Password = password;
+        this.username = name;
+        this.password = password;
         this.address = address;
     }
 
-    public String getName() {
-        return Name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public String getAddress() {

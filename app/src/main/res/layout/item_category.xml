@@ -13,14 +13,14 @@
         android:layout_margin="@dimen/dp_5">
 
         <ImageView
-            android:id="@+id/food_image"
+            android:id="@+id/foodImage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
             android:background="#4f0e0d0e"
             android:scaleType="centerCrop"
             android:src="@drawable/bg" />
         <TextView
-            android:id="@+id/food_name"
+            android:id="@+id/foodName"
             android:text="Name Of Food"
             android:textColor="@color/text_color"
             android:background="#4f0e0d0e"

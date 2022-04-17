@@ -62,5 +62,6 @@
     <string name="error_phone_is_exits">Phone Number Already Register</string>
     <string name="title_sign_up_success">Sign Up Successfully</string>
     <string name="title_button_sign_in">Sign Up</string>
+    <string name="title_error_input_location">Bạn chưa nhập địa chỉ</string>
 
 </resources>

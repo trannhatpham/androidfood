@@ -1,5 +1,6 @@
 package com.example.fooddrink.database;
 
+import com.example.fooddrink.Model.CartInfo;
 import com.example.fooddrink.Model.Food;
 import com.example.fooddrink.Model.User;
 import com.google.firebase.database.FirebaseDatabase;
@@ -13,12 +14,15 @@ public class PublicData {
 
     public static List<Food> listDataFoodBookingNow = null;
 
+    public static List<CartInfo> listCart= null;
+
     public static User currentUser;
 
     public static void clear(){
         database = null;
         listDataFoodBooking = null;
         listDataFoodBookingNow = null;
+        listCart = null;
     }
 
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.example.fooddrink.Model.CartInfo;
 import com.example.fooddrink.Model.Food;
 import com.example.fooddrink.databinding.ItemCartBinding;
 import com.example.fooddrink.ui.base.BaseLMAdapter;
@@ -12,7 +13,7 @@ import com.example.fooddrink.ui.base.BaseLMAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartAdapter extends BaseLMAdapter<Food, ItemCartBinding> {
+public class CartAdapter extends BaseLMAdapter<CartInfo, ItemCartBinding> {
     OnClick onClick;
     Context mContext;
     private List<Food> listChose= new ArrayList<>();
@@ -37,15 +38,15 @@ public class CartAdapter extends BaseLMAdapter<Food, ItemCartBinding> {
     }
 
     @Override
-    public void setupViews(ItemCartBinding binding, Food item, int position) {
-        binding.textTitle.setText(item.getName());
+    public void setupViews(ItemCartBinding binding, CartInfo item, int position) {
+//        binding.textTitle.setText(item.getName());
         binding.textCount.setText(item.getCount().toString());
 
-        Glide.with(mContext)
-                .load(item.getImage())
-                .override(300, 300)
-                .into(binding.imageLogo);
-        binding.textPrice.setText(item.getPrice());
+//        Glide.with(mContext)
+//                .load(item.getImage())
+//                .override(300, 300)
+//                .into(binding.imageLogo);
+        binding.textPrice.setText(item.getPrice().toString());
 
         binding.imageAdd.setOnClickListener(view -> onClick.onClick(view, position));
 

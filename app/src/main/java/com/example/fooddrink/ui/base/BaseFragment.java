@@ -24,12 +24,15 @@ public abstract class BaseFragment <T extends ViewBinding> extends Fragment impl
         View root = binding.getRoot();
         initView();
         initData();
+        onObserver();
         return root;
     }
 
     public abstract T getViewBinding(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
-    protected abstract void initView();
+    protected void initView() {}
 
-    protected abstract void initData();
+    protected void initData() {}
+
+    protected void onObserver() {}
 }

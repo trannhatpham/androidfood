@@ -7,12 +7,15 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fooddrink.Model.User;
 import com.example.fooddrink.R;
 import com.example.fooddrink.database.AppPreference;
 import com.example.fooddrink.databinding.ActivityChangeAddressBinding;
 import com.example.fooddrink.ui.base.BaseTestActivity;
+import com.example.fooddrink.ui.viewmodel.UserViewModel;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,6 +32,7 @@ public class ChangeAddressActivity extends BaseTestActivity<ActivityChangeAddres
     private static int REQUESTMAP = 1;
     User info;
     String phone = "";
+    UserViewModel viewModel;
 
     @Override
     public ActivityChangeAddressBinding getViewBinding() {
@@ -37,6 +41,7 @@ public class ChangeAddressActivity extends BaseTestActivity<ActivityChangeAddres
 
     @Override
     protected void initView() {
+        viewModel = new ViewModelProvider(this).get(UserViewModel.class);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         assert mapFragment != null;
         mapFragment.getMapAsync(this);
@@ -44,7 +49,7 @@ public class ChangeAddressActivity extends BaseTestActivity<ActivityChangeAddres
         info = AppPreference.getUserMain();
         binding.layoutHeader.imageBack.setOnClickListener(v -> finish());
         binding.layoutHeader.textTitle.setText("Địa chỉ");
-        binding.textName.setText(info.getName());
+        binding.textName.setText(info.getUsername());
         binding.textNumberPhone.setText(phone);
         binding.textAddress.setText(info.getAddress());
 
@@ -60,12 +65,9 @@ public class ChangeAddressActivity extends BaseTestActivity<ActivityChangeAddres
             startActivityForResult(intent, REQUESTMAP);
         });
         binding.layoutHeader.textOK.setOnClickListener(v -> {
+            showProgressDialog(true);
             info.setAddress(binding.textAddress.getText().toString());
-            AppPreference.saveUserMain(info);
-
-            setResult(RESULT_OK);
-            // result ok for the request activity before.
-            this.finish();
+            viewModel.updateUser(info);
         });
 
     }
@@ -73,6 +75,21 @@ public class ChangeAddressActivity extends BaseTestActivity<ActivityChangeAddres
     @Override
     protected void initData() {
 
+    }
+
+    @Override
+    protected void onObserver() {
+        super.onObserver();
+        viewModel.DataUser.observe(this, user -> {
+            if (user != null) {
+                AppPreference.saveUserMain(info);
+                setResult(RESULT_OK);
+                this.finish();
+                // result ok for the request activity before.
+
+            }
+            showProgressDialog(false);
+        });
     }
 
     @Override
@@ -98,7 +115,7 @@ public class ChangeAddressActivity extends BaseTestActivity<ActivityChangeAddres
         mMap = googleMap;
         String address = info.getAddress();
 //        binding.etOrigin.setText(address);
-        LatLng locationMain = getLocationFromAddress(address);
+        LatLng locationMain = getLocationFromAddress(address==null?"":address);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         MarkerOptions markerOptions = new MarkerOptions();
         if (locationMain == null) return;

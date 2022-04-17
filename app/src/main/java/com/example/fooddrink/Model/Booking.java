@@ -2,14 +2,16 @@ package com.example.fooddrink.Model;
 
 public class Booking {
 
-    private String Datetime;
-    private String MenuId;
-    private String address;
-    private String employee;
-
-    private Integer isFinish;
-    private String numberPhone;
-    private Integer price;
+    public String Datetime;
+    public String MenuId;
+    public String address;
+    public String employee;
+    public String userId;
+    public Integer isFinish;
+    public String numberPhone;
+    public String listCart;
+    public Integer price;
+    public Integer stageId;
 
     public Booking(String datetime, String menuId, String address, String employee, Integer isFinish, String numberPhone, Integer price, String userName) {
         this.Datetime = datetime;
@@ -21,6 +23,8 @@ public class Booking {
         this.price = price;
         this.userName = userName;
     }
+
+    public Booking(){}
 
     public String getDatetime() {
         return Datetime;
@@ -86,6 +90,6 @@ public class Booking {
         this.userName = userName;
     }
 
-    private String userName;
+    public String userName;
 
 }

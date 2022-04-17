@@ -4,34 +4,27 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.View;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.fooddrink.Model.Booking;
 import com.example.fooddrink.Model.User;
 import com.example.fooddrink.database.AppPreference;
-import com.example.fooddrink.database.PublicData;
-import com.example.fooddrink.Model.Food;
 import com.example.fooddrink.databinding.ActivityBookingBinding;
 import com.example.fooddrink.ui.address.ChangeAddressActivity;
 import com.example.fooddrink.ui.base.BaseTestActivity;
+import com.example.fooddrink.ui.viewmodel.BookingViewModel;
 import com.example.fooddrink.utils.AppUtils;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Calendar;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BookingActivity extends BaseTestActivity<ActivityBookingBinding> {
     BookingAdapter adapter;
-    FirebaseDatabase database;
-    DatabaseReference foodBooking;
-    List<Food> listAllData = new ArrayList<>();
     public static Integer CHANGEADDRESS = 1;
     User info;
     String numberPhone = "";
     Booking booking;
+    BookingViewModel viewModel;
+
+    Boolean isCheckLocation = false;
 
     @Override
     public ActivityBookingBinding getViewBinding() {
@@ -41,39 +34,50 @@ public class BookingActivity extends BaseTestActivity<ActivityBookingBinding> {
     @SuppressLint("SetTextI18n")
     @Override
     protected void initView() {
+        viewModel = new ViewModelProvider(this).get(BookingViewModel.class);
         info = AppPreference.getUserMain();
         adapter = new BookingAdapter(this);
         numberPhone = AppPreference.getUserPhone();
 
-        database = PublicData.database;
-        foodBooking = database.getReference("Booking");
-
-        String ff = foodBooking.push().getKey();
-
         binding.rclMain.setLayoutManager(new LinearLayoutManager(this));
         binding.rclMain.setAdapter(adapter);
-        binding.textAddress.setText(info.getName() + " \n" + numberPhone + "\n" +
-                info.getAddress());
+        if ( info.getAddress()== null){
+            binding.textAddress.setText(info.getUsername() + " \n" + numberPhone);
+        } else {
+            binding.textAddress.setText(info.getUsername() + " \n" + numberPhone + "\n" +
+                    info.getAddress());
+        }
+
         binding.textAddress.setOnClickListener(v -> {
-            Intent intent = new Intent(BookingActivity.this, ChangeAddressActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivityForResult(intent, CHANGEADDRESS);
+            if (!AppUtils.checkLocation(this)){
+                buildAlertMessageNoGps();
+                isCheckLocation = true;
+                return;
+            }
+            startChangeAddress();
         });
         binding.buttonOk.setOnClickListener(view -> {
-            assert ff != null;
-            foodBooking.child(ff).setValue(booking);
+            viewModel.insertBooking(getBooking());
         });
+    }
+
+    public void startChangeAddress(){
+        Intent intent = new Intent(BookingActivity.this, ChangeAddressActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivityForResult(intent, CHANGEADDRESS);
     }
 
     @Override
     protected void initData() {
-        String time = AppUtils.formatDateToString(Calendar.getInstance().getTime(), "yyyy-MM-dd'T'HH:mm:ss");
-        booking = new Booking(time, "01", info.getAddress(), "01", 0, numberPhone, 10000, info.getName());
-        listAllData = AppPreference.getListFoodBooking();
-        if (listAllData != null) {
-            adapter.clearData();
-            adapter.addData(listAllData);
-        }
+    }
+
+    private Booking getBooking() {
+        booking = new Booking();
+        booking.listCart = "";
+        booking.stageId = 1;
+        booking.address = info.getAddress();
+        booking.userId = info.getUserID().toString();
+        return booking;
     }
 
     @Override
@@ -90,6 +94,22 @@ public class BookingActivity extends BaseTestActivity<ActivityBookingBinding> {
                 initView();
                 initData();
             }
+        }
+    }
+
+    private void buildAlertMessageNoGps() {
+        alertDialog("VỊ TRÍ", "Để tiếp tục, vui lòng bật chức năng xác định vị trí.",
+                "OK", null, (dialog, which) ->
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)));
+
+        // request location from your phone
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isCheckLocation){
+            startChangeAddress();
         }
     }
 }

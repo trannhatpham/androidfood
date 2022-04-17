@@ -3,63 +3,79 @@ package com.example.fooddrink.Model;
 import java.io.Serializable;
 
 public class Food implements Serializable {
-    private String Name, Image, Description, Price, Discount, MenuId;
+    private String name;
+    private String image;
+    private String description;
+    private String MenuId;
 
-    private String FoodID;
+    public Integer getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(Integer categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    private Integer categoryID;
+
+    private Integer foodID;
+
+    private Integer price, discount;
 
     private Boolean isCheck = true;
 
     private Integer count;
+
     public Food() {
     }
 
-    public Food(String name, String image, String description, String price, String discount, String menuId) {
-        Name = name;
-        Image = image;
-        Description = description;
-        Price = price;
-        Discount = discount;
+    public Food(String name, String image, String description, Integer price, Integer discount, String menuId) {
+        this.name = name;
+        this.image = image;
+        this.description = description;
+        this.price = price;
+        this.discount = discount;
         MenuId = menuId;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getImage() {
-        return Image;
+        return image;
     }
 
     public void setImage(String image) {
-        Image = image;
+        this.image = image;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
-    public String getPrice() {
-        return Price;
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setPrice(String price) {
-        Price = price;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
-    public String getDiscount() {
-        return Discount;
+    public Integer getDiscount() {
+        return discount;
     }
 
-    public void setDiscount(String discount) {
-        Discount = discount;
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
     }
 
     public String getMenuId() {
@@ -70,12 +86,12 @@ public class Food implements Serializable {
         MenuId = menuId;
     }
 
-    public String getFoodID() {
-        return FoodID;
+    public Integer getFoodID() {
+        return foodID;
     }
 
-    public void setFoodID(String foodID) {
-        FoodID = foodID;
+    public void setFoodID(Integer foodID) {
+        this.foodID = foodID;
     }
 
     public Integer getCount() {

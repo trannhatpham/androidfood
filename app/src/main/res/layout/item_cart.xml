@@ -13,8 +13,8 @@
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_60"
             android:layout_centerVertical="true"
-            android:scaleType="fitXY"
             android:layout_marginStart="@dimen/dp_5"
+            android:scaleType="fitXY"
             android:src="@drawable/img_no_image" />
 
         <TextView
@@ -64,8 +64,8 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:minWidth="@dimen/dp_50"
-                android:textSize="@dimen/textSize_14"
-                android:textColor="@color/Red_red" />
+                android:textColor="@color/Red_red"
+                android:textSize="@dimen/textSize_14" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageAdd"

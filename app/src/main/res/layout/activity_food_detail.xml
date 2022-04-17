@@ -10,23 +10,10 @@
     <include android:id="@+id/layoutHeader"
         layout="@layout/layout_header_back" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnCart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right|end"
-        android:backgroundTint="@color/color_main"
-        android:elevation="6dp"
-        android:src="@drawable/ic_baseline_shopping_cart_24"
-        android:visibility="gone"
-        app:layout_anchorGravity="bottom"
-        app:pressedTranslationZ="12dp"
-        app:useCompatPadding="true" />
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -62,7 +49,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -233,6 +220,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_marginTop="10dp"
                         android:orientation="vertical">
 

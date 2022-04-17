@@ -119,22 +119,7 @@
                 android:orientation="horizontal"
                 android:weightSum="5">
 
-                <CheckBox
-                    android:id="@+id/checkbox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.5"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:button="@null"
-                    android:clickable="true"
-                    android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:padding="@dimen/dp_5" />
-
                 <LinearLayout
-
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -145,9 +130,11 @@
                         style="@style/Widget.AppCompat.TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:text="Tổng thanh toán:" />
 
                     <TextView
+                        android:id="@+id/textTotalPrice"
                         style="@style/Widget.AppCompat.TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -160,10 +147,10 @@
                     style="@style/Widget.AppCompat.TextView"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.5"
+                    android:layout_weight="2"
                     android:background="@drawable/bg_button_light"
                     android:gravity="center"
-                    android:text="text"
+                    android:text="Đặt hàng"
                     android:textColor="@color/de_fault"
                     android:textSize="@dimen/textSize_20" />
 

@@ -17,7 +17,6 @@ public class AppPreference {
     public static final String PREF_USER_MAIN = "user_login_main";
 
     public static final String PREF_IS_LOGIN = "is_login";
-    public static final String PREF_LIST_FOOD_BOOK = "food_book";
 
     private static SharedPreferences sharedPreferences;
 
@@ -53,14 +52,6 @@ public class AppPreference {
      * Save
      **/
 
-    public static void saveListFoodBooking(List<Food> info) {
-        if (info == null) {
-            clearListFoodBooking();
-        } else {
-            Hawk.put(PREF_LIST_FOOD_BOOK, info);
-        }
-    }
-
     public static void saveUserMain(User user) {
         if (user == null) {
             clearUserMain();
@@ -73,10 +64,6 @@ public class AppPreference {
      * Get
      **/
 
-    public static List<Food> getListFoodBooking() {
-        return Hawk.get(PREF_LIST_FOOD_BOOK);
-    }
-
     public static User getUserMain() {
         return Hawk.get(PREF_USER_MAIN);
     }
@@ -84,11 +71,6 @@ public class AppPreference {
     /**
      * Clear
      **/
-
-    public static void clearListFoodBooking() {
-        Hawk.delete(PREF_LIST_FOOD_BOOK);
-    }
-
     public static void clearUserMain() {
         Hawk.delete(PREF_USER_MAIN);
     }
